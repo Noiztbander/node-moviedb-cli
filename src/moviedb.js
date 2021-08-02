@@ -1,6 +1,9 @@
 #!/usr/bin/env node
 
+require('dotenv').config();
 const { Command } = require("commander");
+const request = require("./utils/requestMethods");
+const render = require("./utils/renderMethods");
 
 const program = new Command();
 program.version("0.0.1");
@@ -8,8 +11,21 @@ program.version("0.0.1");
 program
   .command("get-persons")
   .description("Make a network request to fetch most popular persons")
-  .action(function handleAction() {
-    console.log("hello-world");
+  .option("-p, --popular", "Fetch the popular persons")
+  .requiredOption("--page <number>", "The page of persons data results to fetch", "1")
+  .action(async function handleAction(options) {
+
+    const page = parseInt(options.page);
+    let personsJson = {};
+
+    personsJson = await request.getPopularPersons(page);
+    console.log(personsJson);
+
+    // render.renderPersons(
+    //   personsJson.page,
+    //   personsJson.total_pages,
+    //   personsJson.results
+    // );
   });
 
 program
@@ -17,6 +33,7 @@ program
   .description("Make a network request to fetch the data of a single person")
   .action(function handleAction() {
     console.log("hello-world");
+    console.log(process.env.API_KEY);
   });
 
 program

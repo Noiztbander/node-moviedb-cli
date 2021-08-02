@@ -11,6 +11,9 @@
   "license": "MIT",
   "private": true,
   "main": "src/moviedb.js",
+  "bin": {
+    "moviedb": "./src/moviedb.js"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/assembler-school/node-moviedb-cli.git"
