@@ -3,9 +3,6 @@ require("dotenv").config();
 
 const globalOptions = {
   hostname: "api.themoviedb.org",
-  headers: {
-    Authorization: `${process.env.API_KEY}`,
-  },
   maxRedirects: 20,
 };
 
@@ -13,7 +10,8 @@ async function getPopularPersons(page = 1) {
   const options = {
     ...globalOptions,
     method: "GET",
-    path: `/3/person/popular?page=${page}&${process.env.API_KEY}`,
+    path: `/3/person/popular?page=${page}&api_key=${process.env.API_KEY}`,
+    // path: `/3/person/popular?page=2&api_key=b438f54d53e0a45427f0dd13e094abd5`,
   };
 
   let promise = new Promise((resolve, reject) => {
